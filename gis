@@ -1,0 +1,53 @@
+library(dplyr)
+path <- "C:/Users/Usuario/Documents/cursos/Data Analysis/GeoElectoral"
+setwd(path)
+gis <- read.csv("elecciones_2016.csv", stringsAsFactors = F)
+grep("TIJLLACAHUA", gis$recinto)
+select(gis[c(2917,7491),], c(2, 4, 5, 6, 7))
+grep("ANCOCALANI", gis$recinto)
+grep("CHIWIRAPI", gis$recinto)
+grep("MARCARANI", gis$recinto)
+grep("MACHACAMARCA", gis$recinto)
+select(gis[c(1554, 1899, 2793, 2944, 3295, 6128, 6473, 7367, 7518, 7869),], c(2, 4, 5, 6, 7))
+grep("CONCHAMARCA", gis$recinto)
+grep("PEÑA COLORADA", gis$recinto)
+grep("PUCARA", gis$recinto)
+select(gis[c(826, 919, 944, 1107, 1428, 1990, 5400, 5493, 5518, 5681, 6002, 6564),], c(2, 4, 5, 6, 7))
+grep("THOLA MAYU", gis$recinto)
+grep("THOLA", gis$recinto)
+select(gis[c(1707, 6281),], c(2, 4, 5, 6, 7))
+grep("MAYU", gis$recinto)
+select(gis[c(1707, 6281),], c(2, 4, 5, 6, 7))
+select(gis[grep("MAYU", gis$recinto),], c(2, 4, 5, 6, 7))
+select(gis[858,], c(2, 4, 5, 6, 7))
+===============
+  GIS excel
+===============
+library(readxl)
+library(ggmap)
+picar <- read_excel("C:/Users/Usuario/Google Drive/consultorias/PICAR/PICARgis.xlsx")
+picar$sat <- sample(1:5, 55, replace = T)
+picar$tipo <- as.factor(sample(1:7, 55, replace = T))
+geocode("Bolivia")
+geocode("Potosi")
+mapData <- get_map(location = c(lon=-65.75501,lat=-19.57228),color="color",source="google",maptype="terrain",zoom=7)
+ggmap(mapData,extent="panel",ylab="Latitude",xlab="Longitude")
+BOLIVIA<-ggmap(get_map(location = geocode("Potosi"),source = "google", maptype="terrain", zoom=7),extent = "panel")
+BOLIVIA
+#ejemplo: latlon$collisions <- pol$Rasmussen[pol$Year=="2008"]*15
+#satisfacción
+BOLIVIA + geom_point(aes(X, Y, color = sat), data = picar, size = 5) + 
+  scale_color_gradient(low = "white", high = "red")
+#tipo de proyectos
+BOLIVIA + geom_point(aes(X, Y, color = tipo), data = picar, size = 5) + 
+  scale_color_hue()
+#comunanal vs mujer
+BOLIVIA + geom_point(aes(X, Y, color = sat, label = COMUNIDAD), data = picar, size = 5) + 
+  scale_color_gradient(low = "yellow", high = "red")+
+  facet_wrap(~Proyectos, ncol = 2)
+#nombre comunidades
+BOLIVIA + geom_point(aes(X, Y) , color = "blue", data = picar, size = 5, alpha = 0.4)+
+  geom_text(data = picar, aes(X, Y, label = COMUNIDAD), size = 3, vjust = 0, hjust = -0.5)
+#nombre municipios
+BOLIVIA + geom_point(aes(X, Y) , color = "blue", data = picar, size = 5, alpha = 0.4)+
+  geom_text(data = picar, aes(X, Y, label = (MUNICIPIO), size = 3, vjust = 0, hjust = -0.5)
