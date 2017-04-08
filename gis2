@@ -1,0 +1,38 @@
+library(dplyr)
+#ejemplo: latlon$collisions <- pol$Rasmussen[pol$Year=="2008"]*15
+# coordinadas de comunidades en GeoElectoral
+path <- "C:/Users/Usuario/Documents/cursos/Data Analysis/GeoElectoral"
+setwd(path)
+gis <- read.csv("elecciones_2016.csv", stringsAsFactors = F)
+grep("TIJLLACAHUA", gis$recinto)
+select(gis[c(2917,7491),], c(2, 4, 5, 6, 7))
+===============
+  GIS excel
+===============
+library(readxl)
+library(ggmap)
+picar <- read_excel("C:/Users/Usuario/Google Drive/consultorias/PICAR/PICARgis.xlsx")
+picar$sat <- sample(1:5, 55, replace = T)
+picar$tipo <- as.factor(sample(1:7, 55, replace = T))
+geocode("Bolivia")
+geocode("Potosi")
+mapData <- get_map(location = c(lon=-65.75501,lat=-19.57228),color="color",source="google",maptype="terrain",zoom=7)
+ggmap(mapData,extent="panel",ylab="Latitude",xlab="Longitude")
+BOLIVIA<-ggmap(get_map(location = geocode("Potosi"),source = "google", maptype="terrain", zoom=7),extent = "panel")
+BOLIVIA
+#satisfacción
+BOLIVIA + geom_point(aes(x.com, y.com, color = sat), data = picar, size = 5) + 
+  scale_color_gradient(low = "yellow", high = "red")
+#tipo de proyectos
+BOLIVIA + geom_point(aes(x.com, y.com, color = tipo), data = picar, size = 5) + 
+  scale_color_hue()
+#comunanal vs mujer
+BOLIVIA + geom_point(aes(x.com, y.com, color = sat, label = comunidad), data = picar, size = 5) + 
+  scale_color_gradient(low = "yellow", high = "red")+
+  facet_wrap(~proyecto, ncol = 2)
+#nombre comunidades
+BOLIVIA + geom_point(aes(x.com, y.com) , color = "blue", data = picar, size = 5, alpha = 0.4)+
+  geom_text(data = picar, aes(x.com, y.com, label = comunidad), size = 3, vjust = 0, hjust = -0.5)
+#nombre municipios
+BOLIVIA + geom_point(aes(x.mun, y.mun) , color = "blue", data = picar, size = 5, alpha = 0.4)+
+  geom_text(data = picar, aes(x.mun, y.mun, label = municipio), size = 3, vjust = 0, hjust = -0.5)
