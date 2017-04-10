@@ -34,20 +34,19 @@ mapData <- get_map(location = c(lon=-65.75501,lat=-19.57228),color="color",sourc
 ggmap(mapData,extent="panel",ylab="Latitude",xlab="Longitude")
 BOLIVIA<-ggmap(get_map(location = geocode("Potosi"),source = "google", maptype="terrain", zoom=7),extent = "panel")
 BOLIVIA
-#ejemplo: latlon$collisions <- pol$Rasmussen[pol$Year=="2008"]*15
 #satisfacción
-BOLIVIA + geom_point(aes(X, Y, color = sat), data = picar, size = 5) + 
-  scale_color_gradient(low = "white", high = "red")
+BOLIVIA + geom_point(aes(x.com, y.com, color = sat), data = picar, size = 5) + 
+  scale_color_gradient(low = "yellow", high = "red")
 #tipo de proyectos
-BOLIVIA + geom_point(aes(X, Y, color = tipo), data = picar, size = 5) + 
+BOLIVIA + geom_point(aes(x.com, y.com, color = tipo), data = picar, size = 5) + 
   scale_color_hue()
 #comunanal vs mujer
-BOLIVIA + geom_point(aes(X, Y, color = sat, label = COMUNIDAD), data = picar, size = 5) + 
+BOLIVIA + geom_point(aes(x.com, y.com, color = sat, label = comunidad), data = picar, size = 5) + 
   scale_color_gradient(low = "yellow", high = "red")+
-  facet_wrap(~Proyectos, ncol = 2)
+  facet_wrap(~proyecto, ncol = 2)
 #nombre comunidades
-BOLIVIA + geom_point(aes(X, Y) , color = "blue", data = picar, size = 5, alpha = 0.4)+
-  geom_text(data = picar, aes(X, Y, label = COMUNIDAD), size = 3, vjust = 0, hjust = -0.5)
+BOLIVIA + geom_point(aes(x.com, y.com) , color = "blue", data = picar, size = 5, alpha = 0.4)+
+  geom_text(data = picar, aes(x.com, y.com, label = comunidad), size = 3, vjust = 0, hjust = -0.5)
 #nombre municipios
-BOLIVIA + geom_point(aes(X, Y) , color = "blue", data = picar, size = 5, alpha = 0.4)+
-  geom_text(data = picar, aes(X, Y, label = (MUNICIPIO), size = 3, vjust = 0, hjust = -0.5)
+BOLIVIA + geom_point(aes(x.mun, y.mun) , color = "blue", data = picar, size = 5, alpha = 0.4)+
+  geom_text(data = picar, aes(x.mun, y.mun, label = municipio), size = 3, vjust = 0, hjust = -0.5)
