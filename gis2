@@ -1,0 +1,40 @@
+library(readxl)
+library(ggmap)
+picar <- read_excel("C:/Users/Usuario/Google Drive/consultorias/PICAR/PICARgis.xlsx")
+mapData <- get_map(location = geocode("Potosi"), color="color",source="google",maptype="terrain",zoom=7)
+ggmap(mapData,extent="panel",ylab="Latitude",xlab="Longitude")
+BOLIVIA<-ggmap(get_map(location = geocode("Potosi"),source = "google", maptype="terrain", zoom=7),extent = "panel")
+BOLIVIA
+#general
+BOLIVIA + geom_point(aes(x, y), data = picar, size = 5, alpha = 0.7, color = "blue") + 
+  scale_color_hue()
+#tipo de proyectos
+BOLIVIA + geom_point(aes(x, y, color = tipo), data = picar, size = 5, alpha = 0.7) + 
+  scale_color_hue()
+#satisfacción 
+BOLIVIA + geom_point(aes(x, y, color = PreguntaUno), data = picar, size = 5) +
+  scale_color_gradient(low = "yellow", high = "red")
+BOLIVIA + geom_point(aes(x, y, color = PreguntaDos), data = picar, size = 5) +
+  scale_color_gradient(low = "yellow", high = "red")
+BOLIVIA + geom_point(aes(x, y, color = PreguntaTres), data = picar, size = 5) +
+  scale_color_gradient(low = "yellow", high = "red")
+BOLIVIA + geom_point(aes(x, y, color = PreguntaCuatro), data = picar, size = 5) +
+  scale_color_gradient(low = "yellow", high = "red")
+BOLIVIA + geom_point(aes(x, y, color = PreguntaCinco), data = picar, size = 5) +
+  scale_color_gradient(low = "yellow", high = "red")
+BOLIVIA + geom_point(aes(x, y, color = PreguntaSeis), data = picar, size = 5) +
+  scale_color_gradient(low = "yellow", high = "red")
+BOLIVIA + geom_point(aes(x, y, color = PreguntaSiete), data = picar, size = 5) +
+  scale_color_gradient(low = "yellow", high = "red")
+BOLIVIA + geom_point(aes(x, y, color = PreguntaOcho), data = picar, size = 5) +
+  scale_color_gradient(low = "yellow", high = "red")
+BOLIVIA + geom_point(aes(x, y, color = PreguntaNueve), data = picar, size = 5) +
+  scale_color_gradient(low = "yellow", high = "red")
+BOLIVIA + geom_point(aes(x, y, color = PreguntaDiez), data = picar, size = 5) +
+  scale_color_gradient(low = "yellow", high = "red")
+BOLIVIA + geom_point(aes(x, y, color = PreguntaOnce), data = picar, size = 5) +
+  scale_color_gradient(low = "yellow", high = "red")
+BOLIVIA + geom_point(aes(x, y, color = PreguntaDoce), data = picar, size = 5) +
+  scale_color_gradient(low = "yellow", high = "red")
+BOLIVIA + geom_point(aes(x, y, color = PreguntaTrece), data = picar, size = 5) +
+  scale_color_gradient(low = "yellow", high = "red")
